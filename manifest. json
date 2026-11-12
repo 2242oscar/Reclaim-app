@@ -1,0 +1,12 @@
+
+{
+  "name": "RECLAIM V2",
+  "short_name": "RECLAIM",
+  "description": "Take back your time. Take back control.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#101827",
+  "theme_color": "#101827",
+  "orientation": "portrait"
+}
