@@ -1,0 +1,118 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#101827">
+<title>RECLAIM V2</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #101827;
+  color: white;
+  font-family: Arial, sans-serif;
+  padding: 22px;
+}
+header { text-align: center; padding: 25px 0; }
+h1 { color: #4ade80; font-size: 38px; letter-spacing: 5px; }
+.subtitle { color: #aab5c5; }
+.card {
+  background: #1d293b;
+  padding: 20px;
+  border-radius: 16px;
+  margin: 18px 0;
+}
+h2 { color: #4ade80; }
+button {
+  background: #4ade80;
+  color: #101827;
+  border: none;
+  padding: 14px;
+  border-radius: 10px;
+  font-weight: bold;
+  width: 100%;
+  margin-top: 10px;
+}
+input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: none;
+  margin-top: 8px;
+}
+.progress {
+  height: 12px;
+  background: #374151;
+  border-radius: 10px;
+  overflow: hidden;
+}
+#bar { height: 100%; width: 0%; background: #4ade80; }
+</style>
+</head>
+<body>
+<header>
+<h1>RECLAIM</h1>
+<p class="subtitle">Take back your time. Take back control.</p>
+</header>
+
+<div class="card">
+<h2>Your recovery journey</h2>
+<p>Every day is a new opportunity to become stronger.</p>
+<h3 id="days">Day 0</h3>
+<div class="progress"><div id="bar"></div></div>
+<button onclick="startJourney()">START MY JOURNEY</button>
+</div>
+
+<div class="card">
+<h2>Daily commitment</h2>
+<p>Today, I choose discipline over temporary pleasure.</p>
+<label>How are you feeling today?</label>
+<input id="mood" placeholder="Write how you feel...">
+<button onclick="saveMood()">SAVE MY CHECK-IN</button>
+<p id="message"></p>
+</div>
+
+<div class="card">
+<h2>Emergency reset</h2>
+<p>Feeling an urge? Pause. Breathe. Change your environment. Remember your goals.</p>
+<button onclick="resetUrge()">I NEED HELP NOW</button>
+<p id="help"></p>
+</div>
+
+<div class="card">
+<h2>Daily rules</h2>
+<p>✓ Avoid triggering content.</p>
+<p>✓ Keep your phone away from your bed.</p>
+<p>✓ Exercise and stay productive.</p>
+<p>✓ Never let one setback define you.</p>
+</div>
+
+<script>
+function startJourney() {
+  if (!localStorage.getItem("reclaimStart")) {
+    localStorage.setItem("reclaimStart", new Date().toISOString());
+  }
+  updateDays();
+}
+function updateDays() {
+  let start = localStorage.getItem("reclaimStart");
+  if (!start) return;
+  let days = Math.floor((Date.now()-new Date(start))/86400000);
+  document.getElementById("days").innerText = "Day " + days;
+  document.getElementById("bar").style.width =
+    Math.min(days/30*100,100) + "%";
+}
+function saveMood() {
+  localStorage.setItem("reclaimMood", document.getElementById("mood").value);
+  document.getElementById("message").innerText = "Check-in saved. Keep going!";
+}
+function resetUrge() {
+  document.getElementById("help").innerText =
+    "Put your phone down. Take 10 slow breaths. Leave the room. Walk for 10 minutes. You are in control of your next decision.";
+}
+updateDays();
+</script>
+</body>
+</html>
